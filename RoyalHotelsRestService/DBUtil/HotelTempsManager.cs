@@ -21,9 +21,12 @@ namespace RoyalHotelsRestService.DBUtil
 
 
             private const string INSERT = "INSERT INTO Hoteltemps (Tempe_Date, Hotel_Id, Tempe_Value) VALUES (@Tempe_Date, @Hotel_Id, @Tempe_Value)";
+            private const string GETALL = "SELECT * FROM Hoteltemps";
+            private const string GETRECENT = "SELECT * FROM Hoteltemps WHERE Tempe_Date=(SELECT max(Tempe_Date) FROM Hotel_Temps) AND Hotel_Id=0";
+    
 
 
-            public bool Post(Temperaturmaaling maaling)
+        public bool Post(Temperaturmaaling maaling)
             {
                 bool retValue;
 
@@ -42,5 +45,10 @@ namespace RoyalHotelsRestService.DBUtil
 
                 return retValue;
             }
+
+        //public bool GetRecent()
+        //{
+
+        //}
     }
 }

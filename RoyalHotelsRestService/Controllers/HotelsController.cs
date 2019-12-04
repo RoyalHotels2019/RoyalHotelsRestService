@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using HotelLibrary;
 
 namespace RoyalHotelsRestService.Controllers
 {
@@ -21,6 +22,12 @@ namespace RoyalHotelsRestService.Controllers
         // GET: api/Hotels/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
+        {
+            return "value";
+        }
+
+        [HttpGet("/Recent", Name = "GetRecent")]
+        public string GetRecent(int id)
         {
             return "value";
         }
