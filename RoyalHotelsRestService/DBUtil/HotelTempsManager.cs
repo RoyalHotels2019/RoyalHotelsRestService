@@ -23,9 +23,9 @@ namespace RoyalHotelsRestService.DBUtil
             private const string INSERT = "INSERT INTO Hoteltemps (Tempe_Date, Hotel_Id, Tempe_Value) VALUES (@Tempe_Date, @Hotel_Id, @Tempe_Value)";
             private const string GETALL = "SELECT * FROM Hoteltemps";
             private const string GETRECENT = "SELECT * FROM Hoteltemps WHERE Tempe_Date=(SELECT max(Tempe_Date) FROM Hotel_Temps) AND Hotel_Id=0";
-    
+            private const string DELETE = "DELETE FROM Hoteltemps WHERE Tempe_Date = @Tempe_Date AND Hotel_Id = @Hotel_Id";
 
-
+        //API: API/HotelTemps
         public bool Post(Temperaturmaaling maaling)
             {
                 bool retValue;
@@ -45,10 +45,85 @@ namespace RoyalHotelsRestService.DBUtil
 
                 return retValue;
             }
+        //API: API/HotelTemps
+        public IEnumerable<Temperaturmaaling> Get()
+        {
+            List<Temperaturmaaling> liste = new List<Temperaturmaaling>();
 
-        //public bool GetRecent()
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(GETALL, connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Temperaturmaaling maaling = ReadMaaling(reader);
+                liste.Add(maaling);
+            }
+            connection.Close();
+            return liste;
+        }
+
+        // Delete api/ProcessOrdre/5
+        public bool Delete(Temperaturmaaling maaling)
+        {
+            bool sucesss = true;
+
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(DELETE, connection);
+            command.Parameters.AddWithValue("@Tempe_Date", maaling.DatoTid);
+            command.Parameters.AddWithValue("@Hotel_Id", maaling.HotelID);
+
+            int rowsAffected = command.ExecuteNonQuery();
+            sucesss = rowsAffected == 1;
+
+            return sucesss;
+        }
+        //API: API/HotelTemps/Recent
+        public Temperaturmaaling GetRecent()
+        {
+            Temperaturmaaling maaling = new Temperaturmaaling();
+
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(GETRECENT, connection);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                maaling = ReadMaaling(reader);
+            }
+            connection.Close();
+            return maaling;
+
+        }
+
+        //public IEnumerable<Temperaturmaaling> Get(DateTime date)
         //{
+        //    List<Temperaturmaaling> liste = new List<Temperaturmaaling>();
 
+        //    SqlConnection connection = new SqlConnection(ConnectionString);
+        //    connection.Open();
+        //    SqlCommand cmd = new SqlCommand(GETDATE, connection);
+        //    cmd.Parameters.AddWithValue("@Date", date);
+
+        //    SqlDataReader reader = cmd.ExecuteReader();
+
+        //    while (reader.Read())
+        //    {
+        //        ProcessOrdre processOrdre = ReadProcessOrdre(reader);
+        //        liste.Add(processOrdre);
+        //    }
+        //    connection.Close();
+        //    return liste;
         //}
+
+        private Temperaturmaaling ReadMaaling(SqlDataReader reader)
+        {
+            Temperaturmaaling maaling = new Temperaturmaaling(reader.GetInt32(1), reader.GetDateTime(0), reader.GetDouble(2));
+            return maaling;
+        }
     }
 }

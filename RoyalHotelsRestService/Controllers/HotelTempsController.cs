@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotelLibrary;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoyalHotelsRestService.DBUtil;
 
 namespace RoyalHotelsRestService.Controllers
 {
@@ -11,24 +13,27 @@ namespace RoyalHotelsRestService.Controllers
     [ApiController]
     public class HotelTempsController : ControllerBase
     {
-        // GET: api/HotelTemps
+        HotelTempsManager manager = new HotelTempsManager();
+
+        // GET: api/Hotels
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Temperaturmaaling> Get()
         {
-            return new string[] { "value1", "value2" };
+            return manager.Get();
         }
 
-        // GET: api/HotelTemps/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
+        // GET: api/Hotels/5
+        [HttpGet("/Recent", Name = "GetRecent")]
+        public Temperaturmaaling GetRecent()
+        {
+            return manager.GetRecent();
+        }
         // POST: api/HotelTemps
         [HttpPost]
-        public void Post([FromBody] string value)
+        public bool Post([FromBody] Temperaturmaaling maaling)
         {
+            return manager.Post(maaling);
         }
 
         // PUT: api/HotelTemps/5
@@ -39,8 +44,9 @@ namespace RoyalHotelsRestService.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(Temperaturmaaling maaling)
         {
+            return manager.Delete(maaling);
         }
     }
 }
