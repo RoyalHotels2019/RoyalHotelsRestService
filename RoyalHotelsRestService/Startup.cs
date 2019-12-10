@@ -25,6 +25,7 @@ namespace RoyalHotelsRestService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options => { options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +35,7 @@ namespace RoyalHotelsRestService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAnyOrigin");
             app.UseMvc();
         }
     }

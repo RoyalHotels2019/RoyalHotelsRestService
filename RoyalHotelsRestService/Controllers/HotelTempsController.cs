@@ -25,7 +25,7 @@ namespace RoyalHotelsRestService.Controllers
 
         // GET: api/Hotels/5
         [HttpGet]
-        [Route("/Recent")]
+        [Route("Name/Recent")]
         public Temperaturmaaling GetRecent()
         {
             return manager.GetRecent();
