@@ -43,10 +43,10 @@ namespace RoyalHotelsRestService.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public bool Delete(Temperaturmaaling maaling)
+        [HttpDelete("{Tempe_Date}")]
+        public bool Delete(DateTime date)
         {
-            return manager.Delete(maaling);
+            return manager.Delete(date);
         }
     }
 }

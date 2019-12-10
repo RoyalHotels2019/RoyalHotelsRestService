@@ -65,15 +65,15 @@ namespace RoyalHotelsRestService.DBUtil
         }
 
         // Delete api/ProcessOrdre/5
-        public bool Delete(Temperaturmaaling maaling)
+        public bool Delete(DateTime date)
         {
             bool sucesss = true;
 
             SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(DELETE, connection);
-            command.Parameters.AddWithValue("@Tempe_Date", maaling.DatoTid);
-            command.Parameters.AddWithValue("@Hotel_Id", maaling.HotelID);
+            command.Parameters.AddWithValue("@Tempe_Date", date);
+            command.Parameters.AddWithValue("@Hotel_Id", 0);
 
             int rowsAffected = command.ExecuteNonQuery();
             sucesss = rowsAffected == 1;
