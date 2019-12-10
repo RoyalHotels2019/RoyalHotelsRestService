@@ -10,19 +10,19 @@ namespace RoyalHotelsRestService.DBUtil
     public class HotelTempsManager
     {
             //thomas
-            //private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ThomasTestRoyalHotels;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ThomasTestRoyalHotels;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             //christian
             //private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RoyalHotel2019;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             //azure
-            private const string ConnectionString = @"Server=tcp:thofoserver.database.windows.net,1433;Initial Catalog = thofodatabase; Persist Security Info=False;User ID = adminthofo; Password=grt45Lde; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;";
+            //private const string ConnectionString = @"Server=tcp:thofoserver.database.windows.net,1433;Initial Catalog = thofodatabase; Persist Security Info=False;User ID = adminthofo; Password=grt45Lde; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;";
 
 
 
             private const string INSERT = "INSERT INTO Hoteltemps (Tempe_Date, Hotel_Id, Tempe_Value) VALUES (@Tempe_Date, @Hotel_Id, @Tempe_Value)";
             private const string GETALL = "SELECT * FROM Hoteltemps";
-            private const string GETRECENT = "SELECT * FROM Hoteltemps WHERE Tempe_Date=(SELECT max(Tempe_Date) FROM Hotel_Temps) AND Hotel_Id=0";
+            private const string GETRECENT = "SELECT * FROM Hoteltemps WHERE Tempe_Date=(SELECT max(Tempe_Date) FROM Hoteltemps) AND Hotel_Id=0";
             private const string DELETE = "DELETE FROM Hoteltemps WHERE Tempe_Date = @Tempe_Date AND Hotel_Id = @Hotel_Id";
 
         //API: API/HotelTemps
