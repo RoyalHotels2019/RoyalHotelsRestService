@@ -33,8 +33,8 @@ namespace RoyalHotelsRestService.DBUtil
                 SqlConnection connection = new SqlConnection(ConnectionString);
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(INSERT, connection);
-                cmd.Parameters.AddWithValue("@Hotel_Id", maaling.HotelID);
-                cmd.Parameters.AddWithValue("@Tempe_Value", maaling.Temperature);
+                cmd.Parameters.AddWithValue("@Hotel_Id", maaling.hotelID);
+                cmd.Parameters.AddWithValue("@Tempe_Value", maaling.temperature);
 
 
                 int rowsAffected = cmd.ExecuteNonQuery();
