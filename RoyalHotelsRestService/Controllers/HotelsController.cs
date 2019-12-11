@@ -38,7 +38,7 @@ namespace RoyalHotelsRestService.Controllers
 
         // POST: api/Hotels
         [HttpPost]
-        public bool Post([FromBody] Temperaturmaaling maaling)
+        public bool Post([FromBody] TemperaturData maaling)
         {
             return manager.Post(maaling);
         }

@@ -20,20 +20,19 @@ namespace RoyalHotelsRestService.DBUtil
 
 
 
-            private const string INSERT = "INSERT INTO Hoteltemps (Tempe_Date, Hotel_Id, Tempe_Value) VALUES (@Tempe_Date, @Hotel_Id, @Tempe_Value)";
+            private const string INSERT = "INSERT INTO Hoteltemps (Hotel_Id, Tempe_Value) VALUES (@Hotel_Id, @Tempe_Value)";
             private const string GETALL = "SELECT * FROM Hoteltemps";
             private const string GETRECENT = "SELECT * FROM Hoteltemps WHERE Tempe_Date=(SELECT max(Tempe_Date) FROM Hoteltemps) AND Hotel_Id=0";
             private const string DELETE = "DELETE FROM Hoteltemps WHERE Tempe_Date = @Tempe_Date AND Hotel_Id = @Hotel_Id";
 
         //API: API/HotelTemps
-        public bool Post(Temperaturmaaling maaling)
+        public bool Post(TemperaturData maaling)
             {
                 bool retValue;
 
                 SqlConnection connection = new SqlConnection(ConnectionString);
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(INSERT, connection);
-                cmd.Parameters.AddWithValue("@Tempe_Date", maaling.DatoTid);
                 cmd.Parameters.AddWithValue("@Hotel_Id", maaling.HotelID);
                 cmd.Parameters.AddWithValue("@Tempe_Value", maaling.Temperature);
 
